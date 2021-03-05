@@ -37,11 +37,11 @@ export default function DashHeader() {
                         </ul>
 
                         <ul className='nav-item'>
-                            <Link to='/transaction' className='nav-links' >Transaction</Link>
+                            <Link to='/buyandsell' className='nav-links' >Transaction</Link>
                         </ul>
 
                         <ul className='nav-item'>
-                            <Link to='/transfer' className='nav-links' >Transfer & Balance</Link>
+                            <Link to='/pastTransaction' className='nav-links' >Transfer & Balance</Link>
                         </ul>
 
                         <ul className='nav-item'>

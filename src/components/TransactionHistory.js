@@ -2,7 +2,41 @@ import React from 'react'
 import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const TransactionHistory = ({ transactionData, walletBalance }) => {
+export default function TransactionHistory() {
+    const [transactionData, setTransactionData] = useState([])
+    const [walletBalance, setWalletBalance] = useState([])
+
+    useEffect(() => {
+        async function loadPastTransactionData() {
+            let transactionAPI = 'https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/transactions/view'
+            axios.defaults.headers.common = {
+                "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
+            };
+            axios.post(transactionAPI, {
+                "accountKey": "4cb6dbea-a84c-4b29-ad43-2c69182681ab"
+            }).then(function (response) {
+                setTransactionData(response.data)
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        async function getWalletBalance() {
+            let walletBalAPI = 'https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/balance'
+            axios.defaults.headers.common = {
+                "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
+            };
+            axios.post(walletBalAPI, {
+                "accountKey": "4cb6dbea-a84c-4b29-ad43-2c69182681ab"
+            }).then(function (response) {
+                setWalletBalance(response.data)
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+        }
+        loadPastTransactionData()
+        getWalletBalance()
+    }, [])
     return (
         <div class="container">
             <div class="row">
