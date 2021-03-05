@@ -1,6 +1,12 @@
 import './App.css';
-import React from 'react';
 import axios from 'axios';
+
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Login from './components/pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import ViewUserDetails from './components/services/ViewUserDetails';
+
 
 function App() {
 
@@ -108,12 +114,21 @@ function App() {
       </>
     );
   }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <DrawBuySell />
-      </header>
-    </div>
+
+      <Router>
+      
+        <Switch>
+          <Route path="/" exact component={Login}/>
+
+          <ProtectedRoute path="/user-details" exact component={ViewUserDetails} />
+    <ProtectedRoute path="/buyandsell" exact component={DrawBuySell} />
+
+        </Switch>
+      </Router>
+
   );
 }
 
