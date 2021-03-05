@@ -5,29 +5,29 @@ import './login.styles.css';
 import { useHistory } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import HomeNavbar from './navigationbar/NavBarComponent';
-// import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 function Login() {
     
     const history = useHistory();
 
     //states:
-    const [userLogin, setUserLogin] = useState('');
-    const [pwdLogin, setPwdLogin] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    //const [loginStatus, setLoginStatus] = useState('');
+    const [loginStatus, setLoginStatus] = useState('');
 
-    // useEffect(()=>{
-    //     if(localStorage.getItem('token'))
-    //     {
-    //         history.push('./user-details')
-    //     }
-    // },[])
+    useEffect(()=>{
+        if(localStorage.getItem('token'))
+        {
+            history.push('./user-details')
+        }
+    },[])
 
-    //url
+    //Fetch API
+    //#1 url
     let loginAPI = "https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/login";
-    
-    //headers:
+    //#2 headers:
     axios.defaults.headers.common = {
         "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
       };
@@ -39,9 +39,21 @@ function Login() {
                 "username" : "Group16",
                 "password" : "zVXQBVfv7lDMW9z"
             }).then((response)=> {
-                console.log(response);
-            }).catch((error)=>{
-                console.log(error);
+                if(response.data.username !== 'Group16'){
+                    setLoginStatus(false);
+                } else {
+                    console.log(response);
+                    alert('Hi ' + username + '!');
+                    setLoginStatus(true);
+                    
+                    //jwt token
+                    const id = response[0];                                        //results return array of users, we want first user. we need id cuz we make the token based on that
+                    const token = jwt.sign( {id}, "secret", {
+                       expiresIn: 600                                               //3rd arg we pass in an object which will pass in info about our token. eg expiry --> expires in 10 mins
+                    });  
+                    localStorage.setItem("token", token)
+                    history.push("./user-details");
+                }
             })
     }
 
@@ -59,7 +71,7 @@ function Login() {
                             type="text"
                             placeholder="Username"
                             onChange={(event)=>{
-                                setUserLogin(event.target.value)
+                                setUsername(event.target.value)
                             }}                             
                             />
                     </div>
@@ -68,7 +80,7 @@ function Login() {
                             type="password"
                             placeholder="Password"  
                             onChange={(event)=>{
-                                setPwdLogin(event.target.value)
+                                setPassword(event.target.value)
                             }}                      
                         />
                     </div>
