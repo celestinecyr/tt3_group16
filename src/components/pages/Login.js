@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from 'reactstrap';
-import Axios from 'axios';
+// import Axios from 'axios';
 import './login.styles.css';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import HomeNavbar from './navigationbar/NavbarComponent';
+import HomeNavbar from './navigationbar/NavBarComponent';
 // import jwt from 'jsonwebtoken';
 
 function Login() {
@@ -27,8 +27,7 @@ function Login() {
                     <div>
                         <Input className="login-input"
                             type="password"
-                            placeholder="Password"
-                            }}                         
+                            placeholder="Password"                       
                         />
                     </div>
                     <div>
