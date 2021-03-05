@@ -39,20 +39,18 @@ function Login() {
                 "username" : "Group16",
                 "password" : "zVXQBVfv7lDMW9z"
             }).then((response)=> {
-                if(response.data.username !== 'Group16'){
+                if(!response.status===200) {
                     setLoginStatus(false);
                 } else {
                     console.log(response);
                     alert('Hi ' + username + '!');
-                    setLoginStatus(true);
-                    
-                    //jwt token
-                    const id = response[0];                                        //results return array of users, we want first user. we need id cuz we make the token based on that
-                    const token = jwt.sign( {id}, "secret", {
-                       expiresIn: 600                                               //3rd arg we pass in an object which will pass in info about our token. eg expiry --> expires in 10 mins
+                    const token = jwt.sign( {response}, "secret", {
+                        expiresIn: 600                                               //3rd arg we pass in an object which will pass in info about our token. eg expiry --> expires in 10 mins
                     });  
-                    localStorage.setItem("token", token)
-                    history.push("./user-details");
+                    localStorage.setItem('token', token);
+                    setLoginStatus(true);
+                    history.push('/user-details');
+                    console.log(loginStatus);
                 }
             })
     }

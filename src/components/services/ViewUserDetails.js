@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import DashHeader from './dashboardheader/DashboardHeader';
-import Axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 function ViewUserDetails() {
 
     //state
-    const [userDetails, setUserDetails] = useState(['']);
+    const [userDetails, setUserDetails] = useState([]);
     const [errorMsg, setErrorMsg] = useState("");
 
-    useEffect(()=>{
-        fetchUser();
-    })
+    //decode
+    const user = localStorage.getItem("token");
+    const decoded = jwt_decode(user);
+    console.log(decoded);
+    console.log(decoded.response.data);
 
      //Fetch API
     //#1 url
@@ -22,17 +23,15 @@ function ViewUserDetails() {
         "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
       };
 
-    const fetchUser = () => {
+    async function fetchUser() {
         axios.post(loginAPI,
             {
-                "username" : "Group16",
-                "password" : "zVXQBVfv7lDMW9z"
+                "accountKey":"4cb6dbea-a84c-4b29-ad43-2c69182681ab"
             })
         .then(response => {
             console.log(response)
-            setUserDetails({
-             userDetails: response.data[0]
-            })
+            setUserDetails(decoded.response.data)
+            localStorage.setItem("token")
         })
         .catch(error => {
             console.log(error)
@@ -46,7 +45,7 @@ function ViewUserDetails() {
                 <DashHeader />
                 <div className="container">      
                 <div className="row row-content table-responsive-sm">
-                    <table className="table table-borderless table-dark">
+                    <table className="table table-striped table-dark">
                         <thead>
                             <tr>
                                 <th scope="col">First Name</th>
@@ -58,22 +57,22 @@ function ViewUserDetails() {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                userDetails ? 
-                                userDetails.map(user => 
-                                <tr key={user.accountKey}>
-                                    <td>{user.firstName}</td>
-                                    <td>{user.lastName}</td>
-                                    <td>{user.nric}</td>
-                                    <td>{user.address}</td>                            
-                                    <td>{user.phoneNumber}</td>
-                                    <td>{user.email}</td>
-                                </tr> 
-                            ) : (null)
-                            }
-                            {
-                                errorMsg ? <div>{errorMsg}</div> : null
-                            } 
+                            <tr>
+                                <td>Celestine</td>
+                                <td>Chen</td>
+                                <td>S12345678B</td>
+                                <td>CCK</td>
+                                <td>12345678</td>
+                                <td>celestinecyr@gmail.com</td>
+                            </tr>
+                            <tr>
+                                <td>{decoded.response.data.firstName}</td>
+                                <td>{decoded.response.data.lastName}</td>
+                                <td>{decoded.response.data.nric}</td>
+                                <td>{decoded.response.data.address}</td>                            
+                                <td>{decoded.response.data.phoneNumber}</td>
+                                <td>{decoded.response.data.email}</td>
+                            </tr> 
                         </tbody>
                     </table>
                 </div>
