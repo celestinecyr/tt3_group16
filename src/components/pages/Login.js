@@ -17,12 +17,12 @@ function Login() {
 
     const [loginStatus, setLoginStatus] = useState('');
 
-    useEffect(()=>{
-        if(localStorage.getItem('token'))
-        {
-            history.push('./user-details')
-        }
-    },[])
+    // useEffect(()=>{
+    //     if(localStorage.getItem('token'))
+    //     {
+    //         history.push('./user-details')
+    //     }
+    // },[])
 
     //Fetch API
     //#1 url
