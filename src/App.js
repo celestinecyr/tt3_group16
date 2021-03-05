@@ -7,7 +7,7 @@ function App() {
   const [transactionData, setTransactionData] = useState([])
 
   useEffect(() => {
-    async function loadTransactionData() {
+    async function loadPastTransactionData() {
         let transactionAPI = 'https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/transactions/view'
         axios.defaults.headers.common = {
             "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
@@ -20,7 +20,7 @@ function App() {
             console.log(error);
         });
     }
-    loadTransactionData()
+    loadPastTransactionData()
 }, [])
   return (
     <div className="App">
