@@ -1,11 +1,10 @@
 import './App.css';
 import { TransactionHistory } from './components/TransactionHistory';
 import axios from 'axios';
-import moment from 'moment';
 import  { useState, useEffect } from 'react'
 
 function App() {
-  const [data, setData] = useState([])
+  const [transactionData, setTransactionData] = useState([])
 
   useEffect(() => {
     async function loadTransactionData() {
@@ -16,7 +15,7 @@ function App() {
         axios.post(transactionAPI, {
             "accountKey": "4cb6dbea-a84c-4b29-ad43-2c69182681ab"
         }).then(function (response) {
-            setData(response.data)
+          setTransactionData(response.data)
         }).catch(function (error) {
             console.log(error);
         });
@@ -25,23 +24,7 @@ function App() {
 }, [])
   return (
     <div className="App">
-      <TransactionHistory data={data} setData={setData}>
-        
-      </TransactionHistory>
-      {/* <header className="App-header"> */}
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-      {/* </header> */}
+      <TransactionHistory transactionData={transactionData}></TransactionHistory>
     </div>
   );
 }
