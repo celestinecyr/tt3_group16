@@ -2,9 +2,17 @@ import React from 'react'
 import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const TransactionHistory = ({ transactionData}) => {
+export const TransactionHistory = ({ transactionData, walletBalance }) => {
     return (
         <div class="container">
+            <div class="row">
+                <div class="col">
+                    Asset Balance: {walletBalance.assetBalance}
+                </div>
+                <div class="col">
+                    Cash Balance: {walletBalance.cashBalance}
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <div class="card">
