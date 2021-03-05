@@ -1,14 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
-import React from 'react'
-import axois from 'axios'
+import React from 'react';
 import axios from 'axios';
 
 function App() {
 
   function DrawBuySell() {
-    const [assetItem, setAssetItem] = React.useState(0)
     const [userAssetInput, setuserAssetInput] = React.useState("")
+    const [transID, settransID] = React.useState('')
+    const [orderType, setorderType] = React.useState('')
+    const [timestamp, settimestamp] = React.useState('')
+    const [assetSymbol, setassetSymbol] = React.useState('')
+    const [assetAmount, setassetAmount] = React.useState('')
+    const [assetPrice, setassetPrice] = React.useState('')
+    const [cashAmount, setcashAmount] = React.useState('')
+    const [assetBalance, setassetBalance] = React.useState('')
+    const [cashBalance, setcashBalance] = React.useState('')
+    const [transacSuccess, settransacSuccess] = React.useState(false)
+    
     const buySellField = React.useRef(null)
 
     let transactionAPI = 'https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/transactions/add'
@@ -17,7 +25,6 @@ function App() {
       "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
     };
 
-
     function handlePurchaseSubmit(e){
       e.preventDefault()
       axios.post(transactionAPI, {
@@ -25,13 +32,41 @@ function App() {
           "orderType" : "BUY",
           "assetAmount" : userAssetInput
       }).then(function (response) {
+        settransID(JSON.stringify(response.data.transactionId));
+        setorderType(JSON.stringify(response.data.orderType));
+        settimestamp(JSON.stringify(response.data.timestamp));
+        setassetSymbol(JSON.stringify(response.data.assetSymbol));
+        setassetAmount(JSON.stringify(response.data.assetAmount));
+        setassetPrice(JSON.stringify(response.data.assetPrice));
+        setcashAmount(JSON.stringify(response.data.cashAmount));
+        setassetBalance(JSON.stringify(response.data.assetBalance));
+        setcashBalance(JSON.stringify(response.data.cashBalance));
+        settransacSuccess(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+
+    function handleConfirmTransaction(e){
+      e.preventDefault()
+      settransacSuccess(false)
+    }
+
+    function handleSellSubmit(e){
+      e.preventDefault()
+      axios.post(transactionAPI, {
+          "accountKey" : "4cb6dbea-a84c-4b29-ad43-2c69182681ab",
+          "orderType" : "SELL",
+          "assetAmount" : userAssetInput
+      }).then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-
     }
+
 
     return (
       <>
@@ -40,7 +75,17 @@ function App() {
         value={userAssetInput}
         onChange = {(e) => setuserAssetInput(e.target.value)}
       /></form>
-      <button onClick={handlePurchaseSubmit}> Purchase {userAssetInput} assets</button> <button>Sell {userAssetInput} assets</button>
+      <button onClick={handlePurchaseSubmit}> Purchase {userAssetInput} assets</button> 
+      <button onClick={handleSellSubmit}>Sell {userAssetInput} assets</button>
+ 
+
+      <div className={"transactionDetail" + ((transacSuccess) ? " overlay--show" : "")}>
+       <h3>Transaction ID: {transID}</h3>
+          <p>You have {orderType} {assetAmount} of asset {assetSymbol} for the price of {assetPrice}</p>
+          <p></p>   
+          <button onClick={handleConfirmTransaction}>Confirm</button>
+      </div>
+
       </>
     );
   }
