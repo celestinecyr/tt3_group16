@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+
+.transactionDetail{
+  background-color: rgba(0, 0, 0, .82);
+  position: fixed;
+  width: 800px;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.overlay--show{
+  opacity: 1;
+  visibility: visible;
+
+}
