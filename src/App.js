@@ -1,12 +1,12 @@
 import './App.css';
-//import { TransactionHistory } from './components/TransactionHistory';
+//import { PriceData } from './components/PriceData';
 import axios from 'axios';
 import moment from 'moment';
 import  { useState, useEffect } from 'react'
 
 function App() {
   
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
   let assetSymbol = null;
   let price = null;
   let timestamp = null;
@@ -18,11 +18,12 @@ function App() {
             "X-API-Key": "LAmt7e4YU21vFGBwHT6s4aOdBR040NqE1WUd7XKD",
         };
         axios.post(priceAPI, {}).then(function (response) {
-            // setData(response.data)
+            setData(response.data)
             //console.log(moment.unix(response.data[0]['timestamp']).format('dddd MMMM Do YYYY, h:mm:ss a'));
             assetSymbol = response.data.assetSymbol;
             price = response.data.price;
             timestamp = response.data.timestamp;
+            console.log("assetSymbol is " + assetSymbol + " price is " + price + " timestamp is " + timestamp)
             console.log(response.data);
 
             //return response.data; //return this Object instead of printing
@@ -31,13 +32,12 @@ function App() {
             console.log(error);
         });
     }
-    //loadTransactionData()
+    loadTransactionData()
 }, [])
   return (
-    <div>
-          <button onClick="loadTransactionData()">Get Asset Price.</button>
-          <h1>{`${this.assetSymbol} ${this.price} ${this.timestamp}`}</h1>
-	</div>
+    <div className="App">
+          <button onClick=''>Get Asset Price.</button>
+    </div>
   );
 }
 
