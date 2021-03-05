@@ -1,11 +1,12 @@
 import './App.css';
 import axios from 'axios';
-
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from './components/pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import ViewUserDetails from './components/services/ViewUserDetails';
+import TransactionHistory  from './components/TransactionHistory';
+
 
 
 function App() {
@@ -124,11 +125,11 @@ function App() {
           <Route path="/" exact component={Login}/>
 
           <ProtectedRoute path="/user-details" exact component={ViewUserDetails} />
-    <ProtectedRoute path="/buyandsell" exact component={DrawBuySell} />
+          <ProtectedRoute path="/buyandsell" exact component={DrawBuySell} />
+          <ProtectedRoute path="/pastTransaction" exact component={TransactionHistory}/>
 
         </Switch>
       </Router>
-
   );
 }
 
