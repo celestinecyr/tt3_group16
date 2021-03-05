@@ -6,9 +6,10 @@ export const TransactionHistory = ({data, setData}) => {
     const test = [{'id':1},{'id':2}]
     return (
         <div>
-            {data.map((t) => (
-                <p key={t.transactionId}>{t.orderType}</p>
+            {data.map((d) => (
+                <p key={d.transactionId}>{d.transactionId}</p>
             ))}
+
         </div>
 
 

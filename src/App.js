@@ -5,7 +5,7 @@ import moment from 'moment';
 import  { useState, useEffect } from 'react'
 
 function App() {
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
 
   useEffect(() => {
     async function loadTransactionData() {
@@ -17,7 +17,7 @@ function App() {
             "accountKey": "4cb6dbea-a84c-4b29-ad43-2c69182681ab"
         }).then(function (response) {
             setData(response.data)
-            console.log(moment.unix(response.data[0]['timestamp']).format('dddd MMMM Do YYYY, h:mm:ss a'));
+            // console.log(moment.unix(response.data[0]['timestamp']).format('dddd MMMM Do YYYY, h:mm:ss a'));
         }).catch(function (error) {
             console.log(error);
         });
