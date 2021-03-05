@@ -42,6 +42,7 @@ function App() {
         setassetBalance(JSON.stringify(response.data.assetBalance));
         setcashBalance(JSON.stringify(response.data.cashBalance));
         settransacSuccess(true);
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
@@ -60,7 +61,17 @@ function App() {
           "orderType" : "SELL",
           "assetAmount" : userAssetInput
       }).then(function (response) {
-        console.log(response);
+        settransID(JSON.stringify(response.data.transactionId));
+        setorderType(JSON.stringify(response.data.orderType));
+        settimestamp(JSON.stringify(response.data.timestamp));
+        setassetSymbol(JSON.stringify(response.data.assetSymbol));
+        setassetAmount(JSON.stringify(response.data.assetAmount));
+        setassetPrice(JSON.stringify(response.data.assetPrice));
+        setcashAmount(JSON.stringify(response.data.cashAmount));
+        setassetBalance(JSON.stringify(response.data.assetBalance));
+        setcashBalance(JSON.stringify(response.data.cashBalance));
+        settransacSuccess(true);
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
@@ -70,19 +81,27 @@ function App() {
 
     return (
       <>
-      <form><input
+      <h1 class="display-2">Purchase assets</h1>
+      <div className="input-group mb-3 container-sm">
+      
+        <input 
+         type="number" class="form-control"
+        placeholder='Enter the amount of assets you wish to transact'
         ref={buySellField}
         value={userAssetInput}
         onChange = {(e) => setuserAssetInput(e.target.value)}
-      /></form>
-      <button onClick={handlePurchaseSubmit}> Purchase {userAssetInput} assets</button> 
-      <button onClick={handleSellSubmit}>Sell {userAssetInput} assets</button>
- 
+      />
+      </div>
+      <div class="container">
+      <button onClick={handlePurchaseSubmit} className='btn btn-success'> Purchase {userAssetInput} assets</button> 
+      <button onClick={handleSellSubmit} className='btn btn-outline-danger'>Sell {userAssetInput} assets</button>
+      </div>
 
       <div className={"transactionDetail" + ((transacSuccess) ? " overlay--show" : "")}>
        <h3>Transaction ID: {transID}</h3>
-          <p>You have {orderType} {assetAmount} of asset {assetSymbol} for the price of {assetPrice}</p>
-          <p></p>   
+          <p>You have {orderType} {assetAmount} of asset {assetSymbol} for the price of {cashAmount}</p>
+          <p>Each unit cost: {assetPrice}</p>
+          <p>Remaining Cash balance: {cashBalance}</p>   
           <button onClick={handleConfirmTransaction}>Confirm</button>
       </div>
 
@@ -98,5 +117,13 @@ function App() {
   );
 }
 
+
+function InfoField(){
+  return (
+    <div className="input-group mb-3">
+    <input type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+    </div>
+  )
+}
 
 export default App;
