@@ -16,7 +16,7 @@ function App() {
         axios.post(transactionAPI, {
             "accountKey": "4cb6dbea-a84c-4b29-ad43-2c69182681ab"
         }).then(function (response) {
-            setData(JSON.parse(response))
+            setData(response.data)
             console.log(moment.unix(response.data[0]['timestamp']).format('dddd MMMM Do YYYY, h:mm:ss a'));
         }).catch(function (error) {
             console.log(error);
