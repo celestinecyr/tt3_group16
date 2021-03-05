@@ -17,13 +17,6 @@ function Login() {
 
     const [loginStatus, setLoginStatus] = useState('');
 
-    // useEffect(()=>{
-    //     if(localStorage.getItem('token'))
-    //     {
-    //         history.push('./user-details')
-    //     }
-    // },[])
-
     //Fetch API
     //#1 url
     let loginAPI = "https://849rs099m3.execute-api.ap-southeast-1.amazonaws.com/techtrek/login";
@@ -60,9 +53,7 @@ function Login() {
         <Router>
         <HomeNavbar />
         <div className="login-body">
-            <div className="login-bg">
-                {/* <div><img src={logo} alt={logo} height="200" width="80" /></div> */}
-            
+            <div className="login-bg">            
                 <div className="login-form">
                     <div>
                         <Input className="login-input"
@@ -84,7 +75,6 @@ function Login() {
                     </div>
                     <div>
                         <button type="submit" value="submit" className="submit-loginform" onClick={handleLogin}>Sign in</button>
-                        {/* <Link to="/register"><button className="forgot">Forgot Password?</button></Link> */}
                     </div>
                     <div>
                         <div><p className="forgot">Forgot Password?</p></div>
