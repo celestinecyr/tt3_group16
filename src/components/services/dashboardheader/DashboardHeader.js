@@ -18,9 +18,9 @@ export default function DashHeader() {
         window.location.reload();
     }
 
-    // const user = localStorage.getItem("token");
-    // const decoded = jwt_decode(user);
-    // console.log(decoded);
+    const user = localStorage.getItem("token");
+    const decoded = jwt_decode(user);
+    console.log(decoded);
 
         return (
             <>
@@ -56,7 +56,7 @@ export default function DashHeader() {
                         <div className="row row-header">
                             <div className="col-12 col-sm-6">
                                 <div>
-                                    <h1>Welcome, </h1>
+                                    <h1>Welcome {decoded.response.data.firstName}, </h1>
                                     <h1>DBS iBanking</h1>
                                     <p>can insert stuff here</p>
                                 </div>

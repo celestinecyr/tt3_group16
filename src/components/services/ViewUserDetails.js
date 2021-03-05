@@ -44,9 +44,9 @@ function ViewUserDetails() {
             <div>
                 <DashHeader />
                 <div className="container">      
-                <div className="row row-content table-responsive-sm">
-                    <table className="table table-striped table-dark">
-                        <thead>
+                <div className="row row-content table-striped table-responsive-sm">
+                    <table className="table">
+                        <thead className="thead-dark">
                             <tr>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
@@ -57,14 +57,6 @@ function ViewUserDetails() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Celestine</td>
-                                <td>Chen</td>
-                                <td>S12345678B</td>
-                                <td>CCK</td>
-                                <td>12345678</td>
-                                <td>celestinecyr@gmail.com</td>
-                            </tr>
                             <tr>
                                 <td>{decoded.response.data.firstName}</td>
                                 <td>{decoded.response.data.lastName}</td>
